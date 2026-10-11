@@ -15,7 +15,7 @@ Verified locally on **2026-10-11** with Python **3.12.14**. Package versions for
 | Notebook 04 | All 6 code cells completed sequentially using committed aggregate results; tables and two figures rendered and inspected. |
 | Notebook structure | All five files validated with nbformat; code cells compiled after IPython transformation. |
 | Historical report artifacts | Original report/slides PDFs, model, figures, and CSV tables retained unchanged. |
-| GitHub Actions | Workflow prepared; a hosted run is pending publication. Local checks are not a GitHub CI pass. |
+| GitHub Actions | Passed on GitHub with Ubuntu and Python 3.12: installation, compilation, unit checks, and notebook 04 execution. [Verified run](https://github.com/mobatayneh/CP8305FP/actions/runs/38119312537), commit `f410832666ce1590224e84a8f508ad62d0104fc7`. |
 
 Notebook execution used `scripts/run_notebook.py --in-process`, which runs trusted cells sequentially with IPython and captures their outputs. The preparation environment could not open Jupyter kernel sockets. Native Jupyter kernel startup and Windows execution were therefore not validated here. The default runner uses the active Python interpreter for its kernel on environments that allow sockets.
 
