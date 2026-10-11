@@ -146,6 +146,8 @@ CI performs these checks and executes notebook 04 from committed results. It doe
 
 Original academic team: **Christopher Indris, Mojtaba Mohammadi, and Mohammad Al Batayneh**.
 
+All three team members collaborated throughout the project, including research, implementation, experimentation, and analysis. The project was a shared academic effort rather than three independently assigned components.
+
 This edition builds on [chrisindris/CP8305FP](https://github.com/chrisindris/CP8305FP), `main` at [d340d61aa0aa7f7828409dfeae4f27c437c50d4a](https://github.com/chrisindris/CP8305FP/commit/d340d61aa0aa7f7828409dfeae4f27c437c50d4a), dated 2026-09-26. Original authorship and Git history are retained. The original PDF report, presentation, model, and aggregate results remain historical artifacts; the new experiment is labeled separately.
 
 Portfolio maintenance adds executable documentation, portable paths, an independent baseline, threshold-selection fixes, checks, and cleanup of generated build files. See the [original README audit](docs/repository_audit.md) and [validation record](docs/validation.md). This repository represents a team project; it does not attribute all original work to one contributor.
