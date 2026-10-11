@@ -1,10 +1,8 @@
-# Core data science libraries
-numpy
-pandas
-scipy
+# Extended historical research stack. Extra packages are intentionally unpinned;
+# use requirements-core.txt for the tested compact baseline.
+-r requirements-summary.txt
 
 # Machine learning
-scikit-learn
 mlxtend
 imbalanced-learn
 
@@ -17,14 +15,11 @@ shap
 lime
 
 # Visualization
-matplotlib
-seaborn
 plotly
 
 # Jupyter
 jupyter
 notebook
-ipykernel
 
 # Data loading utilities
 openpyxl
@@ -34,4 +29,3 @@ kagglehub
 
 # Utilities
 tqdm
-joblib

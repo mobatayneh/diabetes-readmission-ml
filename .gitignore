@@ -6,6 +6,30 @@ processed_dataset.csv
 .DS_Store
 data/.DS_Store
 
+# Local data, notebook executions and generated LaTeX intermediates
+data/diabetes130/raw/*
+!data/diabetes130/raw/IDS_mapping.csv
+!data/diabetes130/raw/.gitkeep
+data/diabetes130/processed/*
+!data/diabetes130/processed/.gitkeep
+data/diabetes130/raw/download_manifest.json
+reports/runs/
+notebooks/out/
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.fdb_latexmk
+*.fls
+*.nav
+*.out
+*.run.xml
+*.snm
+*.toc
+*.synctex.gz
+*.dvi
+*.bbl-SAVE-ERROR
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

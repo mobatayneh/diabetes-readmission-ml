@@ -16,10 +16,10 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+from src.paths import PROJECT_ROOT, PROCESSED_DATA_DIR
+
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
 DIABETES_RAW_DATA_DIR = PROJECT_ROOT / "data" / "diabetes130" / "raw"
-PROCESSED_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "processed"
 
 
 # Clinical outcome IDs that make 30-day readmission impossible.
@@ -355,7 +355,7 @@ def run_preprocessing_pipeline(
     raw_filename : str
         Input file name in ``data/raw/``.
     processed_filename : str
-        Output file name saved to ``data/processed/``.
+        Output file name saved to ``data/diabetes130/processed/``.
     outlier_columns : list of str, optional
         Numeric columns to apply IQR outlier removal.
     categorical_columns : list of str, optional

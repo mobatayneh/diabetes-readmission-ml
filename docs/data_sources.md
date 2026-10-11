@@ -1,102 +1,53 @@
-# Data Sources Documentation
+# Data Sources
 
-**Project:** CP8305 – Knowledge Discovery Final Project  
-**Team members:** _Add names here_  
-**Date:** _Add date_
-
----
-
-## Overview
-
-This document describes all data sources used in the project, including their origin, relevance to the business problem, preprocessing steps, and any known limitations.
-
----
-
-## 1. Primary Dataset
+## Primary Dataset
 
 | Field | Details |
-|-------|---------|
-| **Name** | _Dataset name_ |
-| **Source** | _URL or institution_ |
-| **Access date** | _YYYY-MM-DD_ |
-| **Format** | _CSV / Excel / JSON / API_ |
-| **Size** | _Rows × Columns_ |
-| **License** | _Public domain / CC-BY / etc._ |
+| --- | --- |
+| Name | Diabetes 130-US Hospitals for Years 1999–2008 |
+| Publisher | UCI Machine Learning Repository |
+| Dataset page | https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008 |
+| DOI | https://doi.org/10.24432/C5230J |
+| Coverage | Diabetes-related inpatient encounters in the United States, 1999–2008 |
+| Download verified | 2026-10-11; each download records its own exact UTC time locally |
+| Shape of downloaded CSV | 101,766 rows × 50 columns, including 2 identifiers and the target |
+| Companion file | `IDS_mapping.csv`: admission type, discharge disposition, and admission source lookup tables |
+| Dataset license | CC BY 4.0, as stated by UCI; this does not license all repository contents |
 
-### Description
+Run `python -m src.download_data` to fetch the [official archive](https://archive.ics.uci.edu/static/public/296/diabetes%2B130-us%2Bhospitals%2Bfor%2Byears%2B1999-2008.zip). Only the two expected CSV names are extracted. Existing files with different contents are not silently overwritten.
 
-_Provide a concise description of what this dataset contains and why it is relevant to the business problem._
+The data directory is `data/diabetes130/raw/`. The full encounter CSV and generated manifest remain local; the small mapping file is tracked. `download_manifest.json` records the source URL, UTC timestamp, sizes, and SHA-256 hashes.
 
-### Key Variables
+Verified original CSV hash:
 
-| Variable | Type | Description | Unit / Range |
-|----------|------|-------------|-------------|
-| `variable_1` | Numeric | _Description_ | _Unit_ |
-| `variable_2` | Categorical | _Description_ | _Categories_ |
-| `target` | _Type_ | _Description_ | _Values_ |
+```text
+0689e7ec031237dc63031b938805c48377748761a3b26acab621567afa24df97
+```
 
-### Data Quality Notes
+## Variables and Target
 
-- **Missing values:** _Percentage and columns affected_
-- **Duplicates:** _Number removed_
-- **Outliers:** _Columns affected and treatment applied_
-- **Class imbalance:** _If applicable_
+- `readmitted`: `<30`, `>30`, or `NO`. The binary task uses `<30` as class 1 and both other labels as class 0.
+- `patient_nbr` and `encounter_id`: identifiers used for cohort construction and overlap checks, never baseline predictors.
+- Numeric utilization features include length of stay, medication/procedure/lab counts, and previous inpatient, outpatient, and emergency visits.
+- Categorical variables include age bracket, demographic categories, admission/discharge/source IDs, diagnoses, laboratory result categories, and medication indicators.
+- The companion mappings describe coded admission/discharge/source values; they are not a second patient dataset.
 
----
+## Data Quality and Cohort Rules
 
-## 2. Supplementary Dataset (if applicable)
+The downloader preserves raw bytes. The baseline reads `?` as missing and keeps the literal laboratory category `None` as a category. Missing numerical values are imputed with training-set medians; categorical missingness becomes `Unknown`. Encoding and scaling are fitted on the training split only.
 
-| Field | Details |
-|-------|---------|
-| **Name** | _Dataset name_ |
-| **Source** | _URL or institution_ |
-| **Access date** | _YYYY-MM-DD_ |
-| **Format** | _CSV / Excel / JSON / API_ |
-| **Size** | _Rows × Columns_ |
-| **License** | _Public domain / CC-BY / etc._ |
+The baseline excludes discharge codes 11, 13, 14, 19, 20, and 21 (expired/hospice categories), then retains the smallest eligible `encounter_id` per patient. This is a deterministic selection rule, not proof of chronological ordering: the dataset does not provide a verified encounter timestamp for this use. The resulting cohort contains **69,990 patients**, including **6,285 positives (8.98%)**. Outliers are retained.
 
-### Description
+The split is stratified 70/15/15 with seed 42. The 22-predictor baseline uses a train-fitted pipeline and validation-only F1 threshold selection. Its cohort and transformations are separate from the feature-engineered historical notebook workflow. See [implementation](../src/baseline.py) and [recorded run](../reports/portfolio/baseline/metrics.json).
 
-_Provide a concise description of what this dataset contains._
+Notebook 02 retains one eligible record per patient and exports its larger engineered table to `data/diabetes130/processed/processed_dataset.csv`. Some historical preparation choices are performed before splitting; the new baseline is the preferred reproducibility example. Neither workflow should be described as externally validated.
 
-### How It Was Joined / Used
+## Use and Limitations
 
-_Explain how this dataset was merged with the primary dataset or used independently._
+These older records do not establish performance in present-day hospitals. Class imbalance, selection rules, missingness, available discharge information, and demographic representation can affect conclusions. The baseline is intended for retrospective research using encounter/discharge information, not a claim of prediction at admission. It has no subgroup fairness, prospective, external, or temporal validation.
 
----
+No patient-level exports, credentials, or private hospital records are needed to review the committed results notebook. Predictions and illustrative cost assumptions are not clinical recommendations or measured financial savings.
 
-## 3. Data Collection Process
+## Citation
 
-_Describe how the data was collected. For example:_
-
-- Data was downloaded directly from [Source Name] on [Date].
-- API queries were made using the following parameters: …
-- Data was collected in compliance with the source's terms of service.
-
----
-
-## 4. Preprocessing Summary
-
-| Step | Description | Script / Notebook |
-|------|-------------|-------------------|
-| Deduplication | Removed exact duplicate rows | `src/data_preprocessing.py` |
-| Missing value imputation | Median for numeric; "Unknown" for categorical | `src/data_preprocessing.py` |
-| Outlier removal | IQR method on selected columns | `src/data_preprocessing.py` |
-| Encoding | One-hot encoding for categorical variables | `src/data_preprocessing.py` |
-| Feature engineering | _Describe custom features added_ | `src/feature_engineering.py` |
-| Scaling | StandardScaler applied inside modeling pipeline | `src/modeling.py` |
-
----
-
-## 5. Citation
-
-_Cite each data source following APA format. Example:_
-
-> Author(s). (Year). *Dataset title* [Data set]. Publisher/Source. https://doi.org/xxxxx
-
----
-
-## 6. Ethical Considerations
-
-- The data used does not contain personally identifiable information (PII).
-- _Add any other relevant ethical considerations._
+Clore, J., Cios, K., DeShazo, J., & Strack, B. (2014). *Diabetes 130-US Hospitals for Years 1999–2008* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5230J

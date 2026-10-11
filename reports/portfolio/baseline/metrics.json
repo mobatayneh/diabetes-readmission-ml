@@ -1,0 +1,105 @@
+{
+  "experiment": "patient_disjoint_logistic_baseline_v1",
+  "created_at_utc": "2026-10-11T06:31:07.507566+00:00",
+  "source_dataset": "https://doi.org/10.24432/C5230J",
+  "raw_csv_sha256": "0689e7ec031237dc63031b938805c48377748761a3b26acab621567afa24df97",
+  "implementation_sha256": "51c1388f5bc668c885891a7b5e70688e1233b3ba18cbe6ba61e3b0ea87ced58b",
+  "seed": 42,
+  "raw_rows": 101766,
+  "eligible_unique_patients": 69990,
+  "used_rows": 69990,
+  "features": [
+    "time_in_hospital",
+    "num_lab_procedures",
+    "num_procedures",
+    "num_medications",
+    "number_outpatient",
+    "number_emergency",
+    "number_inpatient",
+    "number_diagnoses",
+    "race",
+    "gender",
+    "age",
+    "admission_type_id",
+    "discharge_disposition_id",
+    "admission_source_id",
+    "diag_1",
+    "diag_2",
+    "diag_3",
+    "max_glu_serum",
+    "A1Cresult",
+    "insulin",
+    "change",
+    "diabetesMed"
+  ],
+  "split_counts": {
+    "train": {
+      "rows": 48993,
+      "positive": 4400
+    },
+    "validation": {
+      "rows": 10498,
+      "positive": 942
+    },
+    "test": {
+      "rows": 10499,
+      "positive": 943
+    }
+  },
+  "patient_overlap": {
+    "train_validation": 0,
+    "train_test": 0,
+    "validation_test": 0
+  },
+  "selection": {
+    "metric": "validation_f1",
+    "threshold": 0.5599999999999999,
+    "validation_f1": 0.23390431187241584
+  },
+  "test_at_selected_threshold": {
+    "roc_auc": 0.6301491415008788,
+    "average_precision": 0.15598149151450946,
+    "f1": 0.22170361726954493,
+    "precision": 0.1529175050301811,
+    "recall": 0.4029692470837752,
+    "balanced_accuracy": 0.5913443975058893,
+    "brier_score": 0.21847895381116356,
+    "threshold": 0.5599999999999999,
+    "confusion_matrix": {
+      "tn": 7451,
+      "fp": 2105,
+      "fn": 563,
+      "tp": 380
+    }
+  },
+  "test_at_default_threshold": {
+    "roc_auc": 0.6301491415008788,
+    "average_precision": 0.15598149151450946,
+    "f1": 0.21794871794871795,
+    "precision": 0.13767104160848925,
+    "recall": 0.5227995758218452,
+    "balanced_accuracy": 0.5998259076262846,
+    "brier_score": 0.21847895381116356,
+    "threshold": 0.5,
+    "confusion_matrix": {
+      "tn": 6468,
+      "fp": 3088,
+      "fn": 450,
+      "tp": 493
+    }
+  },
+  "convergence_warnings": [],
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "scikit-learn": "1.8.0"
+  },
+  "limitations": [
+    "Single random patient-disjoint split; no temporal or external validation.",
+    "The smallest encounter_id is used to select one eligible encounter per patient, not a verified timestamp.",
+    "Class weighting does not guarantee calibrated probabilities.",
+    "This new baseline is not directly comparable to the historical notebook CV summaries."
+  ]
+}

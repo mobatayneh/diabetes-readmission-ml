@@ -1,5 +1,5 @@
 # Copilot Instructions
 
-When you need a Python environment in this repository, use:
+Use Python 3.12 and a repository-local `.venv` for the documented workflows. Install `requirements-core.txt` for the baseline or `requirements-summary.txt` for results review. The original `pyenv` environment named `cp8305fp` may also be used if it is available and compatible.
 
-`pyenv activate cp8305fp`
+Run commands from the repository root. Use the shared paths in `src/paths.py`. Keep fresh research reports separate with `CP8305_REPORTS_DIR`; retain the original report artifacts as historical results.

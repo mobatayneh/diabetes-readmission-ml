@@ -47,7 +47,7 @@ except Exception:
 # ---------------------------------------------------------------------------
 # Path helper
 # ---------------------------------------------------------------------------
-FIGURES_DIR = Path(__file__).resolve().parents[1] / "reports" / "figures"
+from src.paths import FIGURES_DIR
 
 
 def save_figure(fig: plt.Figure, filename: str, dpi: int = 150) -> None:
