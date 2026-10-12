@@ -1,0 +1,5 @@
+-r requirements-summary.txt
+lightgbm==4.6.0
+# CPU-only distribution; imports as xgboost. Validated on Linux/Python 3.12.
+xgboost-cpu==3.0.5
+threadpoolctl==3.7.0

@@ -619,7 +619,9 @@ def compute_confidence_interval(
 ) -> dict[str, float]:
     """Compute mean and CI from fold-level scores using the t-distribution.
 
-    Appropriate for the small-sample (k = 10) distribution of CV fold scores.
+    Historical descriptive summary only: CV fold scores are dependent because
+    their training sets overlap. This naive t interval is not an independently
+    validated inferential confidence interval and ignores model selection.
     """
     fold_scores = np.asarray(fold_scores, dtype=float)
     valid = fold_scores[~np.isnan(fold_scores)]
@@ -1054,9 +1056,9 @@ def calibrate_model(
 # Cost-sensitive evaluation
 # ---------------------------------------------------------------------------
 
-# Default cost matrix aligned to HRRP readmission penalties.
-# FN is heavily penalised: a missed readmission incurs ~$15 k in HRRP penalties.
-# FP is lightly penalised: a false alarm triggers low-cost preventative care.
+# Illustrative signed outcome values inherited from the academic experiment.
+# These numbers are not verified HRRP penalties, treatment costs, or savings.
+# Negative entries represent losses; financial interpretation is exploratory.
 DEFAULT_COST_MATRIX = {
     "TP": -2_000.0,
     "TN": 0.0,
@@ -1107,8 +1109,8 @@ def sweep_thresholds_cost(
 ) -> pd.DataFrame:
     """Sweep decision thresholds and report expected cost + recall at each.
 
-    Used to select an operating point that balances clinical safety (recall)
-    with financial viability (expected cost).
+    Illustrative threshold sensitivity only. These assumed values do not
+    establish clinical safety, financial viability, or observed cost savings.
     """
     if cost_matrix is None:
         cost_matrix = DEFAULT_COST_MATRIX
