@@ -1,0 +1,336 @@
+{
+  "name": "controlled_readmission_benchmark_v1",
+  "seed": 42,
+  "cv_folds": 3,
+  "random_candidates_per_model": 6,
+  "threads_per_fit": 2,
+  "cv_jobs": 1,
+  "bootstrap_replicates": 1000,
+  "smoke": false,
+  "max_patients": null,
+  "search_metric": "mean training-fold average precision",
+  "threshold_rule": "maximum validation F1 over 0.05..0.95 step 0.01; highest threshold on ties",
+  "primary_models": [
+    "logistic_tuned",
+    "lightgbm_tuned",
+    "xgboost_tuned"
+  ],
+  "secondary_models": [
+    "logistic_initial",
+    "logistic_calibrated",
+    "lightgbm_initial",
+    "lightgbm_calibrated",
+    "xgboost_initial",
+    "xgboost_calibrated"
+  ],
+  "calibration": "sigmoid; nested training-only hyperparameter search within each calibration fold; ensemble=False",
+  "development_ablations": [
+    "toggle class weighting",
+    "pool categories with training count <20",
+    "omit discharge disposition"
+  ],
+  "ablation_policy": "report development-only sensitivity; do not promote to final models",
+  "robustness": "selected fixed configurations on a second training CV partition (seed 43); exploratory, not nested",
+  "prediction_time": "end of index hospitalization, assuming final encounter fields are available",
+  "test_history": "same patient holdout previously reported for the portfolio logistic baseline; not pristine external confirmation",
+  "search_spaces": {
+    "logistic": {
+      "classifier__estimator__C": [
+        0.03,
+        0.1,
+        0.3,
+        1.0,
+        3.0
+      ],
+      "classifier__estimator__l1_ratio": [
+        0.0,
+        1.0
+      ],
+      "classifier__weighting": [
+        null,
+        "balanced"
+      ]
+    },
+    "lightgbm": {
+      "classifier__estimator__n_estimators": [
+        100,
+        200,
+        350
+      ],
+      "classifier__estimator__learning_rate": [
+        0.03,
+        0.06,
+        0.1
+      ],
+      "classifier__estimator__max_depth": [
+        3,
+        5,
+        -1
+      ],
+      "classifier__estimator__num_leaves": [
+        7,
+        15,
+        31
+      ],
+      "classifier__estimator__min_child_samples": [
+        20,
+        60,
+        120
+      ],
+      "classifier__estimator__subsample": [
+        0.8,
+        1.0
+      ],
+      "classifier__estimator__colsample_bytree": [
+        0.8,
+        1.0
+      ],
+      "classifier__estimator__reg_alpha": [
+        0.0,
+        0.5
+      ],
+      "classifier__estimator__reg_lambda": [
+        0.0,
+        2.0,
+        10.0
+      ],
+      "classifier__weighting": [
+        null,
+        "balanced"
+      ]
+    },
+    "xgboost": {
+      "classifier__estimator__n_estimators": [
+        100,
+        200,
+        350
+      ],
+      "classifier__estimator__learning_rate": [
+        0.03,
+        0.06,
+        0.1
+      ],
+      "classifier__estimator__max_depth": [
+        2,
+        3,
+        5
+      ],
+      "classifier__estimator__min_child_weight": [
+        1,
+        5,
+        15
+      ],
+      "classifier__estimator__subsample": [
+        0.8,
+        1.0
+      ],
+      "classifier__estimator__colsample_bytree": [
+        0.8,
+        1.0
+      ],
+      "classifier__estimator__gamma": [
+        0.0,
+        0.5,
+        2.0
+      ],
+      "classifier__estimator__reg_alpha": [
+        0.0,
+        0.5
+      ],
+      "classifier__estimator__reg_lambda": [
+        1.0,
+        5.0,
+        15.0
+      ],
+      "classifier__weighting": [
+        null,
+        "balanced"
+      ]
+    }
+  },
+  "candidates": {
+    "logistic": [
+      {},
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__estimator__C": 0.03
+      },
+      {
+        "classifier__weighting": "balanced",
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__estimator__C": 3.0
+      },
+      {
+        "classifier__weighting": "balanced",
+        "classifier__estimator__l1_ratio": 1.0,
+        "classifier__estimator__C": 1.0
+      },
+      {
+        "classifier__weighting": "balanced",
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__estimator__C": 0.03
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__estimator__C": 0.3
+      },
+      {
+        "classifier__weighting": "balanced",
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__estimator__C": 0.1
+      }
+    ],
+    "lightgbm": [
+      {},
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__estimator__reg_lambda": 10.0,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__num_leaves": 31,
+        "classifier__estimator__n_estimators": 200,
+        "classifier__estimator__min_child_samples": 20,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__learning_rate": 0.03,
+        "classifier__estimator__colsample_bytree": 1.0
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 0.8,
+        "classifier__estimator__reg_lambda": 10.0,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__num_leaves": 31,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__min_child_samples": 20,
+        "classifier__estimator__max_depth": 5,
+        "classifier__estimator__learning_rate": 0.03,
+        "classifier__estimator__colsample_bytree": 0.8
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__estimator__reg_lambda": 0.0,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__num_leaves": 31,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__min_child_samples": 20,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__colsample_bytree": 0.8
+      },
+      {
+        "classifier__weighting": "balanced",
+        "classifier__estimator__subsample": 1.0,
+        "classifier__estimator__reg_lambda": 2.0,
+        "classifier__estimator__reg_alpha": 0.0,
+        "classifier__estimator__num_leaves": 7,
+        "classifier__estimator__n_estimators": 100,
+        "classifier__estimator__min_child_samples": 20,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__colsample_bytree": 0.8
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 0.8,
+        "classifier__estimator__reg_lambda": 2.0,
+        "classifier__estimator__reg_alpha": 0.0,
+        "classifier__estimator__num_leaves": 31,
+        "classifier__estimator__n_estimators": 100,
+        "classifier__estimator__min_child_samples": 60,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__colsample_bytree": 1.0
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__estimator__reg_lambda": 10.0,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__num_leaves": 15,
+        "classifier__estimator__n_estimators": 200,
+        "classifier__estimator__min_child_samples": 120,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__colsample_bytree": 0.8
+      }
+    ],
+    "xgboost": [
+      {},
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__estimator__reg_lambda": 15.0,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__min_child_weight": 5,
+        "classifier__estimator__max_depth": 2,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__gamma": 0.0,
+        "classifier__estimator__colsample_bytree": 1.0
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 0.8,
+        "classifier__estimator__reg_lambda": 15.0,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__min_child_weight": 15,
+        "classifier__estimator__max_depth": 2,
+        "classifier__estimator__learning_rate": 0.06,
+        "classifier__estimator__gamma": 0.0,
+        "classifier__estimator__colsample_bytree": 0.8
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__estimator__reg_lambda": 1.0,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__min_child_weight": 15,
+        "classifier__estimator__max_depth": 2,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__gamma": 2.0,
+        "classifier__estimator__colsample_bytree": 0.8
+      },
+      {
+        "classifier__weighting": "balanced",
+        "classifier__estimator__subsample": 1.0,
+        "classifier__estimator__reg_lambda": 5.0,
+        "classifier__estimator__reg_alpha": 0.0,
+        "classifier__estimator__n_estimators": 100,
+        "classifier__estimator__min_child_weight": 1,
+        "classifier__estimator__max_depth": 2,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__gamma": 2.0,
+        "classifier__estimator__colsample_bytree": 0.8
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 0.8,
+        "classifier__estimator__reg_lambda": 5.0,
+        "classifier__estimator__reg_alpha": 0.0,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__min_child_weight": 1,
+        "classifier__estimator__max_depth": 3,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__gamma": 2.0,
+        "classifier__estimator__colsample_bytree": 1.0
+      },
+      {
+        "classifier__weighting": null,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__estimator__reg_lambda": 15.0,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__n_estimators": 200,
+        "classifier__estimator__min_child_weight": 5,
+        "classifier__estimator__max_depth": 5,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__gamma": 2.0,
+        "classifier__estimator__colsample_bytree": 0.8
+      }
+    ]
+  }
+}

@@ -26,7 +26,7 @@ Fixed seed 42, patient-disjoint training/validation/test partitions of 70%/15%/1
 - Model differences are conditional on this data, split, finite candidate search and threshold rule. Bootstrap intervals exclude training and tuning uncertainty and are unadjusted for multiple comparisons.
 - Important predictors and logistic coefficients are model associations. They do not identify causes, treatment effects or reasons an individual patient was readmitted.
 - Aggregate false-positive/false-negative profiles identify patterns for further investigation; clinical error causes are not available in this dataset.
-- Subgroup slices report sample sizes and suppress metrics for small groups. They do not establish fairness or safety, and are not sufficiently powered for strong intersectional conclusions.
+- Subgroup slices omit groups below 50 patients, report remaining sample sizes, and suppress metrics for groups with fewer than 10 positive or negative cases. They do not establish fairness or safety, and are not sufficiently powered for strong intersectional conclusions.
 - Numeric zeros in sparse XGBoost input follow its default missing-branch semantics. Different encodings and model families can alter results even with the same underlying information.
 - Probability calibration is assessed empirically; a low Brier score alone does not prove clinically usable risk estimates. Compare it with the prevalence-only reference and reliability diagrams.
 

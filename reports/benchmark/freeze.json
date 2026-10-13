@@ -1,0 +1,212 @@
+{
+  "created_at_utc": "2026-10-12T19:47:27.429351+00:00",
+  "source_commit": "027c3694b3ac2382dfe0537246c93db879b4b8f2",
+  "source_sha256": {
+    "src/baseline.py": "51c1388f5bc668c885891a7b5e70688e1233b3ba18cbe6ba61e3b0ea87ced58b",
+    "src/benchmark.py": "89a0e721922141476cc41c0c749193a2e572467d6edd2d96375f824068058af8",
+    "src/evaluation.py": "4c7f27309fe45b71d568943306ba0b721609e1f07fe039c3a4e58caf354ad738",
+    "src/experiment_config.py": "4dfe40d649e6467c6e2e3e5e1307e4020af97d4591981c710de8c1270a1c9e9d",
+    "src/benchmark_reporting.py": "737e7c572a63b0c1742a0f523f4686ae2f9fc4b80865db235126dafd7634e893",
+    "src/benchmark_models.py": "418794ea99e03d545dd2604012938a8e6640af15bc69ee1203d6ca0df5388e28",
+    "requirements-benchmark.txt": "6eb5f9f5ca71ed6fe2142ab11a49fc31638b2cace67a0073ba754831544504d2",
+    "requirements-core.txt": "c888f521247e934b019932b54e4a8339bb571e7b8d0a80ffaa8bc4fb12d7bc74"
+  },
+  "config_sha256": "51f8a78af887dd61bdcae33e66c6157ac4310a7ad22bb90bdd470247915865b8",
+  "cohort": {
+    "raw_rows": 101766,
+    "cohort_rows": 69990,
+    "raw_sha256": "0689e7ec031237dc63031b938805c48377748761a3b26acab621567afa24df97",
+    "patient_overlap": {
+      "train_validation": 0,
+      "train_test": 0,
+      "validation_test": 0
+    },
+    "partitions": {
+      "train": {
+        "n": 48993,
+        "positives": 4400
+      },
+      "validation": {
+        "n": 10498,
+        "positives": 942
+      },
+      "test": {
+        "n": 10499,
+        "positives": 943
+      }
+    },
+    "features": [
+      "time_in_hospital",
+      "num_lab_procedures",
+      "num_procedures",
+      "num_medications",
+      "number_outpatient",
+      "number_emergency",
+      "number_inpatient",
+      "number_diagnoses",
+      "race",
+      "gender",
+      "age",
+      "admission_type_id",
+      "discharge_disposition_id",
+      "admission_source_id",
+      "diag_1",
+      "diag_2",
+      "diag_3",
+      "max_glu_serum",
+      "A1Cresult",
+      "insulin",
+      "change",
+      "diabetesMed"
+    ],
+    "missing_counts_by_partition": {
+      "train": {
+        "time_in_hospital": 0,
+        "num_lab_procedures": 0,
+        "num_procedures": 0,
+        "num_medications": 0,
+        "number_outpatient": 0,
+        "number_emergency": 0,
+        "number_inpatient": 0,
+        "number_diagnoses": 0,
+        "race": 1368,
+        "gender": 0,
+        "age": 0,
+        "admission_type_id": 0,
+        "discharge_disposition_id": 0,
+        "admission_source_id": 0,
+        "diag_1": 7,
+        "diag_2": 218,
+        "diag_3": 872,
+        "max_glu_serum": 0,
+        "A1Cresult": 0,
+        "insulin": 0,
+        "change": 0,
+        "diabetesMed": 0
+      },
+      "validation": {
+        "time_in_hospital": 0,
+        "num_lab_procedures": 0,
+        "num_procedures": 0,
+        "num_medications": 0,
+        "number_outpatient": 0,
+        "number_emergency": 0,
+        "number_inpatient": 0,
+        "number_diagnoses": 0,
+        "race": 263,
+        "gender": 0,
+        "age": 0,
+        "admission_type_id": 0,
+        "discharge_disposition_id": 0,
+        "admission_source_id": 0,
+        "diag_1": 2,
+        "diag_2": 36,
+        "diag_3": 183,
+        "max_glu_serum": 0,
+        "A1Cresult": 0,
+        "insulin": 0,
+        "change": 0,
+        "diabetesMed": 0
+      },
+      "test": {
+        "time_in_hospital": 0,
+        "num_lab_procedures": 0,
+        "num_procedures": 0,
+        "num_medications": 0,
+        "number_outpatient": 0,
+        "number_emergency": 0,
+        "number_inpatient": 0,
+        "number_diagnoses": 0,
+        "race": 288,
+        "gender": 0,
+        "age": 0,
+        "admission_type_id": 0,
+        "discharge_disposition_id": 0,
+        "admission_source_id": 0,
+        "diag_1": 1,
+        "diag_2": 39,
+        "diag_3": 169,
+        "max_glu_serum": 0,
+        "A1Cresult": 0,
+        "insulin": 0,
+        "change": 0,
+        "diabetesMed": 0
+      }
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "packages": {
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "scipy": "1.17.0",
+      "scikit-learn": "1.8.0",
+      "lightgbm": "4.6.0",
+      "xgboost-cpu": "3.0.5",
+      "joblib": "1.5.3",
+      "matplotlib": "3.10.8",
+      "threadpoolctl": "3.7.0"
+    }
+  },
+  "artifacts": {
+    "logistic_initial": {
+      "filename": "logistic_initial.joblib",
+      "sha256": "3bb6a74d1df873f1d9d45c3e33c97ae8b5119c478dd98406623e14c7c4dbc46c",
+      "threshold": 0.5599999999999999,
+      "fit_seconds": 1.1258206280000422
+    },
+    "logistic_tuned": {
+      "filename": "logistic_tuned.joblib",
+      "sha256": "a0dfad7b786953ccfc9c627f51a77362f492cb4b4ba36c53c579aaf539229394",
+      "threshold": 0.10999999999999999,
+      "fit_seconds": 0.35347700119018555
+    },
+    "logistic_calibrated": {
+      "filename": "logistic_calibrated.joblib",
+      "sha256": "4a11d27d6c379b80b951ab337f4fc6bb501439b6f8735f24e8e1f69b4b1b7ab7",
+      "threshold": 0.09999999999999999,
+      "fit_seconds": 66.76646564399994
+    },
+    "lightgbm_initial": {
+      "filename": "lightgbm_initial.joblib",
+      "sha256": "2c4634fb43759ed30ecf1d916fae2ee41cda4680c6103bdcc4ecd5c8dff3d8d9",
+      "threshold": 0.5499999999999999,
+      "fit_seconds": 0.6426716859998578
+    },
+    "lightgbm_tuned": {
+      "filename": "lightgbm_tuned.joblib",
+      "sha256": "06d0eae9e07b0640c48789f6d169840357e2c02785daa52af9445a65884ef7d5",
+      "threshold": 0.10999999999999999,
+      "fit_seconds": 1.2612299919128418
+    },
+    "lightgbm_calibrated": {
+      "filename": "lightgbm_calibrated.joblib",
+      "sha256": "fb4903815c079136d8bd4e6f095b7cb3eabe7b78b9cd6085fa440a124a9af49f",
+      "threshold": 0.09999999999999999,
+      "fit_seconds": 52.29480563400011
+    },
+    "xgboost_initial": {
+      "filename": "xgboost_initial.joblib",
+      "sha256": "29bc7659212b27a42257230cc1669ecb03900ae8142575ce0af95108cffdf465",
+      "threshold": 0.5499999999999999,
+      "fit_seconds": 0.4039641520000714
+    },
+    "xgboost_tuned": {
+      "filename": "xgboost_tuned.joblib",
+      "sha256": "07047928929e20d3acee4cce2ff9240c09c60170f24edf664e1544426c291d21",
+      "threshold": 0.10999999999999999,
+      "fit_seconds": 0.8239448070526123
+    },
+    "xgboost_calibrated": {
+      "filename": "xgboost_calibrated.joblib",
+      "sha256": "85d88ce52324d0a09ea858708bbf9d231cc68a03ec56f8a778812862e2928cb8",
+      "threshold": 0.09,
+      "fit_seconds": 36.04880687900004
+    }
+  },
+  "development_seconds": 258.85745326899996,
+  "status": "development complete; thresholds and estimators frozen before this experiment's test evaluation",
+  "publication_note": "Identifier-derived partition checks removed from this public copy after execution; originals and partition fingerprints remain local. Training, selection, predictions and numerical results are unchanged."
+}

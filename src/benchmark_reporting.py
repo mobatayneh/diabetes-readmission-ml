@@ -23,6 +23,8 @@ def error_analysis(test, predictions, thresholds, primary):
             for group in sorted(set(values)):
                 mask = values == group
                 n, positives = int(mask.sum()), int(y[mask].sum())
+                if n < 50:
+                    continue  # Do not publish rare/single-patient subgroup counts.
                 eligible = n >= 50 and positives >= 10 and n - positives >= 10
                 row = {"model": name, "analysis": "subgroup", "variable": column, "group": group,
                        "n": n, "positives": positives, "metrics_suppressed": not eligible}

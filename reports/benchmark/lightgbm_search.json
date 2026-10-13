@@ -1,0 +1,203 @@
+{
+  "trials": [
+    {
+      "model": "lightgbm",
+      "candidate": 0,
+      "parameters": {},
+      "mean_cv_ap": 0.17022028735463565,
+      "std_cv_ap": 0.008482726618255344,
+      "mean_cv_roc_auc": 0.6481179717125795,
+      "mean_fit_seconds": 0.4516400496164958,
+      "fold_ap": [
+        0.17472591041411617,
+        0.17759605292405672,
+        0.158338898725734
+      ],
+      "selected": false
+    },
+    {
+      "model": "lightgbm",
+      "candidate": 1,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 1.0,
+        "classifier__estimator__learning_rate": 0.03,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__min_child_samples": 20,
+        "classifier__estimator__n_estimators": 200,
+        "classifier__estimator__num_leaves": 31,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__reg_lambda": 10.0,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.17469735181673554,
+      "std_cv_ap": 0.005906119300438398,
+      "mean_cv_roc_auc": 0.6512974221348687,
+      "mean_fit_seconds": 0.8812599182128906,
+      "fold_ap": [
+        0.1792886987714381,
+        0.17844427857791353,
+        0.16635907810085498
+      ],
+      "selected": false
+    },
+    {
+      "model": "lightgbm",
+      "candidate": 2,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 0.8,
+        "classifier__estimator__learning_rate": 0.03,
+        "classifier__estimator__max_depth": 5,
+        "classifier__estimator__min_child_samples": 20,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__num_leaves": 31,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__reg_lambda": 10.0,
+        "classifier__estimator__subsample": 0.8,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.1754526517868955,
+      "std_cv_ap": 0.00705347905055152,
+      "mean_cv_roc_auc": 0.6501424694008248,
+      "mean_fit_seconds": 1.008134921391805,
+      "fold_ap": [
+        0.1819556111109064,
+        0.1787518201918792,
+        0.16565052405790093
+      ],
+      "selected": true
+    },
+    {
+      "model": "lightgbm",
+      "candidate": 3,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 0.8,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__min_child_samples": 20,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__num_leaves": 31,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__reg_lambda": 0.0,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.15791429263695358,
+      "std_cv_ap": 0.004077109003711672,
+      "mean_cv_roc_auc": 0.6265290470681962,
+      "mean_fit_seconds": 1.135012149810791,
+      "fold_ap": [
+        0.16192609487302076,
+        0.1594949370513558,
+        0.15232184598648424
+      ],
+      "selected": false
+    },
+    {
+      "model": "lightgbm",
+      "candidate": 4,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 0.8,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__min_child_samples": 20,
+        "classifier__estimator__n_estimators": 100,
+        "classifier__estimator__num_leaves": 7,
+        "classifier__estimator__reg_alpha": 0.0,
+        "classifier__estimator__reg_lambda": 2.0,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__weighting": "balanced"
+      },
+      "mean_cv_ap": 0.16949411045197904,
+      "std_cv_ap": 0.006081263768333282,
+      "mean_cv_roc_auc": 0.6490005896717385,
+      "mean_fit_seconds": 0.30134081840515137,
+      "fold_ap": [
+        0.1745813220465677,
+        0.172955740884341,
+        0.1609452684250284
+      ],
+      "selected": false
+    },
+    {
+      "model": "lightgbm",
+      "candidate": 5,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 1.0,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__min_child_samples": 60,
+        "classifier__estimator__n_estimators": 100,
+        "classifier__estimator__num_leaves": 31,
+        "classifier__estimator__reg_alpha": 0.0,
+        "classifier__estimator__reg_lambda": 2.0,
+        "classifier__estimator__subsample": 0.8,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.16800590003705115,
+      "std_cv_ap": 0.004681774219768279,
+      "mean_cv_roc_auc": 0.6401324365840647,
+      "mean_fit_seconds": 0.4536079565684001,
+      "fold_ap": [
+        0.17093069978910622,
+        0.1716876885882796,
+        0.16139931173376765
+      ],
+      "selected": false
+    },
+    {
+      "model": "lightgbm",
+      "candidate": 6,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 0.8,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": -1,
+        "classifier__estimator__min_child_samples": 120,
+        "classifier__estimator__n_estimators": 200,
+        "classifier__estimator__num_leaves": 15,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__reg_lambda": 10.0,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.16971829312453804,
+      "std_cv_ap": 0.003975147467334161,
+      "mean_cv_roc_auc": 0.6444020408949113,
+      "mean_fit_seconds": 0.6077994505564371,
+      "fold_ap": [
+        0.16865246398159334,
+        0.17503144851202765,
+        0.1654709668799932
+      ],
+      "selected": false
+    }
+  ],
+  "selections": {
+    "tuned": {
+      "classifier__estimator__colsample_bytree": 0.8,
+      "classifier__estimator__learning_rate": 0.03,
+      "classifier__estimator__max_depth": 5,
+      "classifier__estimator__min_child_samples": 20,
+      "classifier__estimator__n_estimators": 350,
+      "classifier__estimator__num_leaves": 31,
+      "classifier__estimator__reg_alpha": 0.5,
+      "classifier__estimator__reg_lambda": 10.0,
+      "classifier__estimator__subsample": 0.8,
+      "classifier__weighting": null
+    },
+    "calibrated_full_train": {
+      "classifier__estimator__colsample_bytree": 0.8,
+      "classifier__estimator__learning_rate": 0.03,
+      "classifier__estimator__max_depth": 5,
+      "classifier__estimator__min_child_samples": 20,
+      "classifier__estimator__n_estimators": 350,
+      "classifier__estimator__num_leaves": 31,
+      "classifier__estimator__reg_alpha": 0.5,
+      "classifier__estimator__reg_lambda": 10.0,
+      "classifier__estimator__subsample": 0.8,
+      "classifier__weighting": null
+    }
+  },
+  "search_seconds": 18.404322202000003,
+  "calibration_seconds": 52.29480563400011
+}

@@ -1,0 +1,31 @@
+test_discharge_exclusions_and_first_eligible_encounter (test_baseline.BaselineTests.test_discharge_exclusions_and_first_eligible_encounter) ... ok
+test_labels_are_explicit (test_baseline.BaselineTests.test_labels_are_explicit) ... ok
+test_missing_identifiers_fail (test_baseline.BaselineTests.test_missing_identifiers_fail) ... ok
+test_preprocessing_learns_only_training_values (test_baseline.BaselineTests.test_preprocessing_learns_only_training_values) ... ok
+test_splits_are_disjoint_reproducible_and_exhaustive (test_baseline.BaselineTests.test_splits_are_disjoint_reproducible_and_exhaustive) ... ok
+test_threshold_and_metrics (test_baseline.BaselineTests.test_threshold_and_metrics) ... ok
+test_bootstrap_is_paired_and_reproducible (test_benchmark.BenchmarkTests.test_bootstrap_is_paired_and_reproducible) ... ok
+test_candidate_budget_and_information_are_fixed (test_benchmark.BenchmarkTests.test_candidate_budget_and_information_are_fixed) ... ok
+test_fold_patient_isolation_and_duplicate_rejection (test_benchmark.BenchmarkTests.test_fold_patient_isolation_and_duplicate_rejection) ... ok
+test_generic_loader_preserves_uci_literal_none (test_benchmark.BenchmarkTests.test_generic_loader_preserves_uci_literal_none) ... ok
+test_metrics_check_invalid_input_and_specificity (test_benchmark.BenchmarkTests.test_metrics_check_invalid_input_and_specificity) ... ok
+test_modified_config_cannot_reach_test_evaluation (test_benchmark.BenchmarkTests.test_modified_config_cannot_reach_test_evaluation) ... ok
+test_nested_calibration_runs_without_validation_fit (test_benchmark.BenchmarkTests.test_nested_calibration_runs_without_validation_fit) ... ok
+test_small_subgroups_are_omitted_from_public_diagnostics (test_benchmark.BenchmarkTests.test_small_subgroups_are_omitted_from_public_diagnostics) ... ok
+test_three_estimators_train_only_and_persist (test_benchmark.BenchmarkTests.test_three_estimators_train_only_and_persist) ... /workspace/scratch/d5cccc0c18f3/CP8305FP/.venv/lib/python3.12/site-packages/sklearn/utils/validation.py:2691: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+/workspace/scratch/d5cccc0c18f3/CP8305FP/.venv/lib/python3.12/site-packages/sklearn/utils/validation.py:2691: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+ok
+test_threshold_curve_has_only_validation_candidates (test_benchmark.BenchmarkTests.test_threshold_curve_has_only_validation_candidates) ... ok
+test_two_process_cli_round_trip_and_no_overwrite (test_benchmark.BenchmarkTests.test_two_process_cli_round_trip_and_no_overwrite) ... ok
+test_weighted_logistic_matches_reference (test_benchmark.BenchmarkTests.test_weighted_logistic_matches_reference) ... ok
+test_downloader_selects_expected_members_and_preserves_existing_data (test_data_and_paths.DataTests.test_downloader_selects_expected_members_and_preserves_existing_data) ... ok
+test_mapping_file_contains_three_tables (test_data_and_paths.DataTests.test_mapping_file_contains_three_tables) ... ok
+test_preprocessing_writes_to_canonical_directory (test_data_and_paths.DataTests.test_preprocessing_writes_to_canonical_directory) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 17.432s
+
+OK
+Saved processed data to /tmp/tmpih8_7oo1/test.csv

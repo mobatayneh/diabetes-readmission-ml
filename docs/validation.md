@@ -1,5 +1,7 @@
 # Validation and Evaluation Limits
 
+This page records the initial portfolio edition. For the subsequent three-model experiment, see [controlled benchmark validation](benchmark_validation.md).
+
 Verified locally on **2026-10-11** with Python **3.12.14**. Package versions for the new experiment are recorded in [metrics.json](../reports/portfolio/baseline/metrics.json); the tested direct dependencies are pinned in `requirements-core.txt` and `requirements-summary.txt`.
 
 ## What Was Run

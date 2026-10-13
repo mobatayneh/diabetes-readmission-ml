@@ -54,7 +54,7 @@ Use 1,000 ordinary bootstrap resamples of test patients, seed 2042. The same sam
 
 Permutation importance measures AP decrease on a stratified 2,000-patient validation sample with five repeats. Error bars show variability across permutations, **not** confidence intervals over independent studies. Correlated predictors can mask or share importance. Logistic coefficients describe conditional model associations (numeric predictors per training SD; categorical indicators), not causal effects or validated individual explanations. No new SHAP or partial-dependence study is claimed.
 
-Test error analysis publishes only group counts/metrics and feature medians for true/false positive/negative groups. Subgroup metrics require at least 50 patients, 10 positives and 10 negatives; otherwise only counts are retained. These are descriptive slices without subgroup uncertainty estimates or fairness certification. No row-level patient records or fitted models are committed.
+Test error analysis publishes only group counts/metrics and feature medians for true/false positive/negative groups. Subgroups with fewer than 50 patients are omitted from publication. For the remaining groups, metrics require at least 10 positives and 10 negatives; otherwise only aggregate counts are retained. These are descriptive slices without subgroup uncertainty estimates or fairness certification. No row-level patient records or fitted models are committed.
 
 ## Reproduction and evidence
 
@@ -70,7 +70,9 @@ python -m unittest discover -s tests -v
 
 Default aggregate and private outputs are under ignored `reports/runs/benchmark/`. The committed reference aggregates live in `reports/benchmark/`. A completed run is not silently overwritten: use new `--output` and `--private` directories for a different experiment. The evaluation verifies source/config/data/model/environment hashes from `freeze.json` first. Use `--smoke` during development for 600 real patients; it tests mechanics and its results must not replace full-cohort scores.
 
-Direct computational dependencies are pinned in `requirements-benchmark.txt` plus core/summary requirements. `environment.json`/freeze metadata records the measured environment; this is not a complete transitive package or OS lock. Linux/Python 3.12 is the validated target; Windows/macOS are not independently verified.
+Direct computational dependencies are pinned in `requirements-benchmark.txt` plus core/summary requirements. The freeze/evaluation metadata records the measured environment; this is not a complete transitive package or OS lock. Linux/Python 3.12 is the validated target; Windows/macOS are not independently verified.
+
+Patient-identifier fingerprints used to verify exact partition identity are stored only in the private run directory. The committed reference freeze/evaluation records are sanitized publication copies; original integrity records remain local. A post-run maintenance change moved these fingerprints out of aggregate exports, without changing model fitting, predictions or metrics. See the [execution record](benchmark_validation.md) for the source-version mapping.
 
 ## Sources
 

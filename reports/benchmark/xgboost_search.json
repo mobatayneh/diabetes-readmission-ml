@@ -1,0 +1,203 @@
+{
+  "trials": [
+    {
+      "model": "xgboost",
+      "candidate": 0,
+      "parameters": {},
+      "mean_cv_ap": 0.16606289958384435,
+      "std_cv_ap": 0.005196240926453049,
+      "mean_cv_roc_auc": 0.6435126934718411,
+      "mean_fit_seconds": 0.2940824826558431,
+      "fold_ap": [
+        0.16985987716712062,
+        0.16961313546617274,
+        0.1587156861182397
+      ],
+      "selected": false
+    },
+    {
+      "model": "xgboost",
+      "candidate": 1,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 1.0,
+        "classifier__estimator__gamma": 0.0,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": 2,
+        "classifier__estimator__min_child_weight": 5,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__reg_lambda": 15.0,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.1670921654551858,
+      "std_cv_ap": 0.0054175895641972345,
+      "mean_cv_roc_auc": 0.6459791515789944,
+      "mean_fit_seconds": 0.4536704222361247,
+      "fold_ap": [
+        0.16844800529149637,
+        0.1729446887672296,
+        0.1598838023068314
+      ],
+      "selected": false
+    },
+    {
+      "model": "xgboost",
+      "candidate": 2,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 0.8,
+        "classifier__estimator__gamma": 0.0,
+        "classifier__estimator__learning_rate": 0.06,
+        "classifier__estimator__max_depth": 2,
+        "classifier__estimator__min_child_weight": 15,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__reg_lambda": 15.0,
+        "classifier__estimator__subsample": 0.8,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.16628190633558126,
+      "std_cv_ap": 0.005002264325484816,
+      "mean_cv_roc_auc": 0.6460846310539018,
+      "mean_fit_seconds": 0.5421589215596517,
+      "fold_ap": [
+        0.16759323856799063,
+        0.17164656233743725,
+        0.15960591810131594
+      ],
+      "selected": false
+    },
+    {
+      "model": "xgboost",
+      "candidate": 3,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 0.8,
+        "classifier__estimator__gamma": 2.0,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": 2,
+        "classifier__estimator__min_child_weight": 15,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__reg_lambda": 1.0,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.166134778339649,
+      "std_cv_ap": 0.005849495931810847,
+      "mean_cv_roc_auc": 0.6450921194260023,
+      "mean_fit_seconds": 0.4122517903645833,
+      "fold_ap": [
+        0.1663889291449435,
+        0.17316846124255383,
+        0.1588469446314496
+      ],
+      "selected": false
+    },
+    {
+      "model": "xgboost",
+      "candidate": 4,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 0.8,
+        "classifier__estimator__gamma": 2.0,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": 2,
+        "classifier__estimator__min_child_weight": 1,
+        "classifier__estimator__n_estimators": 100,
+        "classifier__estimator__reg_alpha": 0.0,
+        "classifier__estimator__reg_lambda": 5.0,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__weighting": "balanced"
+      },
+      "mean_cv_ap": 0.16643905202318474,
+      "std_cv_ap": 0.006062346059905752,
+      "mean_cv_roc_auc": 0.6453069958341461,
+      "mean_fit_seconds": 0.2636970678965251,
+      "fold_ap": [
+        0.16693171918228003,
+        0.17360527663415704,
+        0.1587801602531172
+      ],
+      "selected": false
+    },
+    {
+      "model": "xgboost",
+      "candidate": 5,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 1.0,
+        "classifier__estimator__gamma": 2.0,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": 3,
+        "classifier__estimator__min_child_weight": 1,
+        "classifier__estimator__n_estimators": 350,
+        "classifier__estimator__reg_alpha": 0.0,
+        "classifier__estimator__reg_lambda": 5.0,
+        "classifier__estimator__subsample": 0.8,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.1746606724011103,
+      "std_cv_ap": 0.005627819079462013,
+      "mean_cv_roc_auc": 0.6506025505718709,
+      "mean_fit_seconds": 0.6093049049377441,
+      "fold_ap": [
+        0.1807730445387528,
+        0.17601897401773609,
+        0.16718999864684198
+      ],
+      "selected": true
+    },
+    {
+      "model": "xgboost",
+      "candidate": 6,
+      "parameters": {
+        "classifier__estimator__colsample_bytree": 0.8,
+        "classifier__estimator__gamma": 2.0,
+        "classifier__estimator__learning_rate": 0.1,
+        "classifier__estimator__max_depth": 5,
+        "classifier__estimator__min_child_weight": 5,
+        "classifier__estimator__n_estimators": 200,
+        "classifier__estimator__reg_alpha": 0.5,
+        "classifier__estimator__reg_lambda": 15.0,
+        "classifier__estimator__subsample": 1.0,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.16934498401611156,
+      "std_cv_ap": 0.007273593804848015,
+      "mean_cv_roc_auc": 0.6454610484160607,
+      "mean_fit_seconds": 0.38227645556132,
+      "fold_ap": [
+        0.1743001539805879,
+        0.17467396474641617,
+        0.15906083332133059
+      ],
+      "selected": false
+    }
+  ],
+  "selections": {
+    "tuned": {
+      "classifier__estimator__colsample_bytree": 1.0,
+      "classifier__estimator__gamma": 2.0,
+      "classifier__estimator__learning_rate": 0.1,
+      "classifier__estimator__max_depth": 3,
+      "classifier__estimator__min_child_weight": 1,
+      "classifier__estimator__n_estimators": 350,
+      "classifier__estimator__reg_alpha": 0.0,
+      "classifier__estimator__reg_lambda": 5.0,
+      "classifier__estimator__subsample": 0.8,
+      "classifier__weighting": null
+    },
+    "calibrated_full_train": {
+      "classifier__estimator__colsample_bytree": 1.0,
+      "classifier__estimator__gamma": 2.0,
+      "classifier__estimator__learning_rate": 0.1,
+      "classifier__estimator__max_depth": 3,
+      "classifier__estimator__min_child_weight": 1,
+      "classifier__estimator__n_estimators": 350,
+      "classifier__estimator__reg_alpha": 0.0,
+      "classifier__estimator__reg_lambda": 5.0,
+      "classifier__estimator__subsample": 0.8,
+      "classifier__weighting": null
+    }
+  },
+  "search_seconds": 11.636937696999894,
+  "calibration_seconds": 36.04880687900004
+}

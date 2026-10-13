@@ -71,13 +71,18 @@ def load_partitions(raw_path, config):
     manifest = {
         "raw_rows": len(raw), "cohort_rows": len(cohort), "raw_sha256": digest(raw_path),
         "patient_overlap": overlap,
-        "partitions": {k: {"n": len(v), "positives": int(v.readmitted_binary.sum()),
-            "ordered_patient_ids_sha256": hashlib.sha256(v.patient_nbr.to_csv(index=False, header=False).encode()).hexdigest()}
+        "partitions": {k: {"n": len(v), "positives": int(v.readmitted_binary.sum())}
             for k, v in parts.items()},
         "features": FEATURES,
         "missing_counts_by_partition": {k: v[FEATURES].isna().sum().to_dict() for k, v in parts.items()},
     }
     return parts, manifest
+
+
+def private_partition_fingerprints(parts):
+    """Identifier-derived checks are local integrity records, never public data."""
+    return {k: hashlib.sha256(v.patient_nbr.to_csv(index=False, header=False).encode()).hexdigest()
+            for k, v in parts.items()}
 
 
 def cv_splits(frame, folds, seed):
@@ -203,6 +208,8 @@ def develop_model(name, train, validation, config, private):
 
 
 def develop(raw_path, output, private, smoke=False):
+    if private.resolve().is_relative_to(output.resolve()):
+        raise ValueError("--private must be outside the public aggregate --output directory")
     config = protocol(smoke)
     if (output / "freeze.json").exists():
         raise FileExistsError("Frozen experiment exists; choose a new --output and --private directory")
@@ -210,6 +217,7 @@ def develop(raw_path, output, private, smoke=False):
     private.mkdir(parents=True, exist_ok=True)
     start = time.perf_counter()
     parts, cohort = load_partitions(raw_path, config)
+    save_json(private / "partition_checks.json", private_partition_fingerprints(parts))
     save_json(output / "experiment_config.json", config)
     save_json(output / "cohort.json", cohort)
     all_results = []
@@ -252,6 +260,9 @@ def verify_freeze(raw_path, output, private):
             raise ValueError(f"Source changed after freeze: {p}")
     config = json.loads((output / "experiment_config.json").read_text())
     parts, cohort = load_partitions(raw_path, config)
+    private_checks = json.loads((private / "partition_checks.json").read_text())
+    if private_partition_fingerprints(parts) != private_checks:
+        raise ValueError("Private patient partition checks changed after freeze")
     if cohort != freeze["cohort"]:
         raise ValueError("Dataset or patient partitions changed after freeze")
     if environment() != freeze["environment"]:

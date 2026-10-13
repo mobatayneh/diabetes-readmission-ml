@@ -19,6 +19,7 @@ from src.benchmark_models import make_model
 from src.evaluation import metrics, paired_bootstrap, threshold_curve
 from src.experiment_config import protocol, MODELS
 from src.data_preprocessing import load_raw_data
+from src.benchmark_reporting import error_analysis
 
 
 class BenchmarkTests(unittest.TestCase):
@@ -139,9 +140,24 @@ class BenchmarkTests(unittest.TestCase):
             self.assertEqual(len(list((output / "figures").glob("*.png"))), 6)
             self.assertTrue((private / "test_predictions.csv").exists())
             self.assertFalse((output / "test_predictions.csv").exists())
+            self.assertTrue((private / "partition_checks.json").exists())
+            private_checks = json.loads((private / "partition_checks.json").read_text())
+            for artifact in output.glob("*.json"):
+                self.assertNotIn("ordered_patient_ids_sha256", artifact.read_text())
+                for fingerprint in private_checks.values():
+                    self.assertNotIn(fingerprint, artifact.read_text())
             again = subprocess.run(command + ["--stage", "evaluate"], capture_output=True, text=True)
             self.assertNotEqual(again.returncode, 0)
             self.assertIn("Evaluation already exists", again.stderr)
+
+    def test_small_subgroups_are_omitted_from_public_diagnostics(self):
+        frame = self.cohort.copy()
+        frame.loc[0, "race"] = "single-patient-group"
+        table = error_analysis(frame, {"example_tuned": np.full(len(frame), .2)},
+                               {"example_tuned": .3}, ["example_tuned"])
+        subgroup = table[table.analysis == "subgroup"]
+        self.assertTrue((subgroup.n >= 50).all())
+        self.assertNotIn("single-patient-group", subgroup.group.tolist())
 
 
 if __name__ == "__main__":
