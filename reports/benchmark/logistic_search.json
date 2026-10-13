@@ -1,0 +1,147 @@
+{
+  "trials": [
+    {
+      "model": "logistic",
+      "candidate": 0,
+      "parameters": {},
+      "mean_cv_ap": 0.15324416266337673,
+      "std_cv_ap": 0.0038596256546177474,
+      "mean_cv_roc_auc": 0.6222541624964001,
+      "mean_fit_seconds": 0.6006064414978027,
+      "fold_ap": [
+        0.15805626462082484,
+        0.15306921485439143,
+        0.14860700851491393
+      ],
+      "selected": false
+    },
+    {
+      "model": "logistic",
+      "candidate": 1,
+      "parameters": {
+        "classifier__estimator__C": 0.03,
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.1674210804032857,
+      "std_cv_ap": 0.0030567828641875545,
+      "mean_cv_roc_auc": 0.647568733372471,
+      "mean_fit_seconds": 0.23755470911661783,
+      "fold_ap": [
+        0.16932440486939077,
+        0.16983080169502326,
+        0.16310803464544305
+      ],
+      "selected": true
+    },
+    {
+      "model": "logistic",
+      "candidate": 2,
+      "parameters": {
+        "classifier__estimator__C": 3.0,
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__weighting": "balanced"
+      },
+      "mean_cv_ap": 0.1488048998549687,
+      "std_cv_ap": 0.003985171448613549,
+      "mean_cv_roc_auc": 0.6140245899731406,
+      "mean_fit_seconds": 0.778301477432251,
+      "fold_ap": [
+        0.1538175935759057,
+        0.14852948630980264,
+        0.14406761967919782
+      ],
+      "selected": false
+    },
+    {
+      "model": "logistic",
+      "candidate": 3,
+      "parameters": {
+        "classifier__estimator__C": 1.0,
+        "classifier__estimator__l1_ratio": 1.0,
+        "classifier__weighting": "balanced"
+      },
+      "mean_cv_ap": 0.1529086314067136,
+      "std_cv_ap": 0.004017742138785159,
+      "mean_cv_roc_auc": 0.6235622010973363,
+      "mean_fit_seconds": 4.025040070215861,
+      "fold_ap": [
+        0.15835853317851917,
+        0.15157555186864002,
+        0.14879180917298163
+      ],
+      "selected": false
+    },
+    {
+      "model": "logistic",
+      "candidate": 4,
+      "parameters": {
+        "classifier__estimator__C": 0.03,
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__weighting": "balanced"
+      },
+      "mean_cv_ap": 0.16619353574000142,
+      "std_cv_ap": 0.0024968746307601508,
+      "mean_cv_roc_auc": 0.6475122639949651,
+      "mean_fit_seconds": 0.3044188817342122,
+      "fold_ap": [
+        0.16809171385919897,
+        0.1678230634129649,
+        0.16266582994784035
+      ],
+      "selected": false
+    },
+    {
+      "model": "logistic",
+      "candidate": 5,
+      "parameters": {
+        "classifier__estimator__C": 0.3,
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__weighting": null
+      },
+      "mean_cv_ap": 0.16548899328987268,
+      "std_cv_ap": 0.004503524148121482,
+      "mean_cv_roc_auc": 0.6407738651584621,
+      "mean_fit_seconds": 0.3331735134124756,
+      "fold_ap": [
+        0.16977368636562842,
+        0.1674275349597258,
+        0.15926575854426378
+      ],
+      "selected": false
+    },
+    {
+      "model": "logistic",
+      "candidate": 6,
+      "parameters": {
+        "classifier__estimator__C": 0.1,
+        "classifier__estimator__l1_ratio": 0.0,
+        "classifier__weighting": "balanced"
+      },
+      "mean_cv_ap": 0.16354610458625204,
+      "std_cv_ap": 0.003209496935535255,
+      "mean_cv_roc_auc": 0.642072463616297,
+      "mean_fit_seconds": 0.32983819643656415,
+      "fold_ap": [
+        0.16657750994894666,
+        0.1649560201325765,
+        0.15910478367723302
+      ],
+      "selected": false
+    }
+  ],
+  "selections": {
+    "tuned": {
+      "classifier__estimator__C": 0.03,
+      "classifier__estimator__l1_ratio": 0.0,
+      "classifier__weighting": null
+    },
+    "calibrated_full_train": {
+      "classifier__estimator__C": 0.03,
+      "classifier__estimator__l1_ratio": 0.0,
+      "classifier__weighting": null
+    }
+  },
+  "search_seconds": 21.492314201,
+  "calibration_seconds": 66.76646564399994
+}

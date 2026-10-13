@@ -1,0 +1,47 @@
+{
+  "checked_at_utc": "2026-10-13T00:49:23.949890+00:00",
+  "checked_local_commit": "e9d055f687cb2834039d1ad277e9b9e36d195580",
+  "scope": "Verification of previously frozen predictions; no model fitting, retuning, new threshold selection or replacement of original evidence.",
+  "source_hashes_match_executed_snapshot": true,
+  "raw_data_and_model_hashes_match": true,
+  "patient_partition_identity_and_labels_match": true,
+  "patient_overlap": {
+    "train_validation": 0,
+    "train_test": 0,
+    "validation_test": 0
+  },
+  "model_variants_checked": 9,
+  "max_test_metric_absolute_difference": 0.0,
+  "validation_metrics_and_frozen_thresholds_match": true,
+  "bootstrap_replicates": 1000,
+  "interval_rows_reproduced": 81,
+  "paired_difference_rows_reproduced": 81,
+  "numeric_tolerance": 1e-12,
+  "all_primary_roc_ap_f1_difference_intervals_include_zero": true,
+  "figures_byte_identical": [
+    "calibration.png",
+    "confusion_matrices.png",
+    "metric_intervals.png",
+    "permutation_importance.png",
+    "roc_pr.png",
+    "validation_thresholds.png"
+  ],
+  "readme_primary_rows_match": true,
+  "comparison_additional_numeric_rows_checked": 27,
+  "constant_probability_reference_matches": true,
+  "subgroup_and_error_aggregates_match": true,
+  "private_patient_fingerprints_absent_from_tracked_text": true,
+  "documentation_relative_links_resolve": true,
+  "historical_assets_byte_identical": 84,
+  "team_collaboration_paragraph_preserved": true,
+  "local_unit_tests": {
+    "passed": 21,
+    "failed": 0,
+    "seconds": 16.302
+  },
+  "limitations": [
+    "Previously used holdout, not independent confirmation.",
+    "Feature availability at real discharge is assumed, not timestamp-verified.",
+    "No external, temporal or prospective validation."
+  ]
+}

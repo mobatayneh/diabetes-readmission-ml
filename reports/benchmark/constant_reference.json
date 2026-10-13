@@ -1,0 +1,9 @@
+{
+  "definition": "Predict training prevalence for every test patient",
+  "training_probability": 0.08980874818851672,
+  "test_prevalence": 0.08981807791218212,
+  "test_brier": 0.08175079087938705,
+  "test_log_loss": 0.3021167201612187,
+  "test_average_precision": 0.08981807791218212,
+  "test_roc_auc": 0.5
+}

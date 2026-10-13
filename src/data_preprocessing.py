@@ -22,7 +22,8 @@ RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
 DIABETES_RAW_DATA_DIR = PROJECT_ROOT / "data" / "diabetes130" / "raw"
 
 
-# Clinical outcome IDs that make 30-day readmission impossible.
+# Study-cohort exclusions inherited from the academic workflow. Hospice codes
+# are a population restriction, not proof that readmission is impossible.
 TERMINAL_OR_HOSPICE_DISCHARGE_IDS = {"11", "13", "14", "19", "20", "21"}
 
 
@@ -74,6 +75,8 @@ def load_raw_data(filename: str) -> pd.DataFrame:
     filepath = _resolve_raw_filepath(filename)
     if filepath.suffix in {".xlsx", ".xls"}:
         return pd.read_excel(filepath)
+    if filepath.name == "diabetic_data.csv":
+        return pd.read_csv(filepath, keep_default_na=False, na_values=["?"], low_memory=False)
     return pd.read_csv(filepath)
 
 
@@ -129,7 +132,7 @@ def filter_terminal_hospice_discharges(
     discharge_column: str = "discharge_disposition_id",
     excluded_ids: set[str] | None = None,
 ) -> pd.DataFrame:
-    """Drop rows with discharge outcomes that cannot be readmitted."""
+    """Apply the study's terminal/hospice discharge-code cohort restriction."""
     if discharge_column not in df.columns:
         return df
 
@@ -402,5 +405,5 @@ if __name__ == "__main__":
         print(exc)
         print(
             "Run with an explicit filename/path, for example:\n"
-            "run_preprocessing_pipeline(raw_filename='diabetes130/raw/diabetic_data.csv', ...)"
+            "run_preprocessing_pipeline(raw_filename='diabetic_data.csv', ...)"
         )

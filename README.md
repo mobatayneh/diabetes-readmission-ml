@@ -2,36 +2,39 @@
 
 Predicting hospital readmission within 30 days for patients with diabetes, using the **UCI Diabetes 130-US Hospitals (1999–2008)** dataset. This academic project explores class imbalance, interpretable prediction, threshold selection, and patient segmentation.
 
-**Start here:** [Results notebook](notebooks/04_analysis_findings.ipynb) · [Original report](reports/bare_jrnl.pdf) · [Original presentation](presentation/slides.pdf) · [Data documentation](docs/data_sources.md)
+**Start here:** [Controlled comparison](docs/model_comparison.md) · [Results notebook](notebooks/04_analysis_findings.ipynb) · [Original report](reports/bare_jrnl.pdf) · [Original presentation](presentation/slides.pdf) · [Data documentation](docs/data_sources.md)
 
 ## Project Topic
 
 Early hospital readmission is a difficult, imbalanced classification problem. We investigate patterns in recorded encounters and how precision and recall change with the decision threshold. The positive class is `readmitted == "<30"`; `NO` and `>30` form the negative class.
 
-The original CP8305 team project includes exploratory analysis, feature engineering, supervised comparisons, and unsupervised analysis. This portfolio edition adds a compact experiment that can be rerun from the original CSV, with preprocessing learned on training data and a separate validation set for threshold selection.
+The original CP8305 team project includes exploratory analysis, feature engineering, supervised comparisons, and unsupervised analysis. This portfolio edition adds a reproducible baseline and a controlled three-model benchmark, with training-only preprocessing, bounded cross-validation searches, validation-selected thresholds and paired uncertainty estimates.
 
-## Results You Can Reproduce
+## Controlled Benchmark Results
 
-The new baseline uses class-weighted logistic regression with 22 predictors. After excluding specified expired/hospice discharge codes and keeping one eligible encounter per patient, **69,990 patients** remain. A stratified 70% / 15% / 15% split has **zero patient overlap** between training, validation, and test sets.
+The portfolio extension compares **Logistic Regression, LightGBM and XGBoost** on the same 69,990 eligible unique patients and 22 predictors. Training/validation/test partitions are 70%/15%/15%, with zero patient overlap. All fitted preprocessing and hyperparameter searches use training data; each threshold is chosen on validation F1. Prediction is defined **at discharge**, assuming final encounter fields are available.
 
-| Held-out test measure | Result |
-| --- | ---: |
-| Test patients | 10,499 |
-| Positive class prevalence | 8.98% |
-| ROC-AUC | 0.630 |
-| Average precision | 0.156 |
-| F1 | 0.222 |
-| Precision | 0.153 |
-| Recall | 0.403 |
-| Decision threshold, chosen on validation F1 | 0.56 |
+Measured on 10,499 test patients (943 positives), with 1,000 paired patient-bootstrap resamples:
 
-Source: [recorded run and environment](reports/portfolio/baseline/metrics.json), executed on 2026-10-11. Values are rounded; the JSON includes full precision, cohort counts, source and implementation hashes, and both default- and selected-threshold metrics.
+| Model | ROC-AUC (95% CI) | Average precision (95% CI) | F1 (95% CI) |
+| --- | --- | --- | --- |
+| Logistic Regression | 0.6500 [0.6316, 0.6680] | 0.1706 [0.1517, 0.1913] | 0.2250 [0.2045, 0.2437] |
+| LightGBM | 0.6513 [0.6328, 0.6690] | 0.1766 [0.1574, 0.1994] | 0.2280 [0.2085, 0.2482] |
+| XGBoost | 0.6500 [0.6307, 0.6669] | 0.1765 [0.1567, 0.1981] | 0.2311 [0.2127, 0.2505] |
 
-![Held-out test confusion matrix for the new logistic baseline](reports/portfolio/baseline_confusion_matrix.png)
+Intervals are pointwise 95% bootstrap intervals. All pairwise ROC-AUC, AP and F1 difference intervals among these tuned models include zero: **the experiment does not establish a clear winner**. Selected thresholds are 0.11 for all three; precision is about 16% and recall about 39–40%. This is a modest retrospective research benchmark, not a clinical decision system.
 
-At this threshold, 380 of 943 positive cases are detected, with 2,105 false positives. This is a modest research baseline with substantial missed cases and false alerts. It has no external or temporal validation and is not a clinical decision system. See [evaluation limits](docs/validation.md).
+![Controlled model comparison](reports/benchmark/figures/roc_pr.png)
 
-**Historical results:** the original stored comparison reports LightGBM mean ROC-AUC **0.654** and mean F1 **0.226**. Those cross-validation artifacts use a different protocol and were not retrained for this edition. They are reviewed separately in [notebook 04](notebooks/04_analysis_findings.ipynb); they do not establish that the new baseline improves performance.
+The test patients were already used in the earlier portfolio baseline, so this is not pristine confirmatory or external validation. The new protocol was frozen before new test evaluation. [Full comparison](docs/model_comparison.md) includes all nine initial/tuned/calibrated variants, exact counts, paired differences, calibration, negative results, interpretation and error analysis.
+
+| Evidence layer | Status |
+| --- | --- |
+| Original academic project | Historical LightGBM mean ROC-AUC 0.654 and F1 0.226 are archived CV summaries under a different protocol; not directly comparable to the new test table. |
+| Initial portfolio baseline | Logistic ROC-AUC 0.630149, AP 0.155981, F1 0.221704; reproduced exactly. [Original record](reports/portfolio/baseline/metrics.json). |
+| Controlled benchmark | Full-cohort three-model development and frozen evaluation executed on 2026-10-12. Tuned logistic ROC-AUC/AP increased from its reference; its F1 improvement is uncertain. Calibration did not improve Brier point estimates. |
+
+See [methodology](docs/methodology.md), [technical audit](docs/technical_audit.md), [model card](docs/model_card.md), [verification](docs/benchmark_validation.md), and [resume/interview notes](docs/career_notes.md).
 
 ## Quick Start
 
@@ -58,14 +61,15 @@ Or in Windows PowerShell:
 Install dependencies, download the public data, and run the experiment:
 
 ```bash
-python -m pip install -r requirements-core.txt
+python -m pip install -r requirements-benchmark.txt
 python -m src.download_data
-python -m src.baseline
+python -m src.benchmark --stage develop
+python -m src.benchmark --stage evaluate
 ```
 
-The download requires internet access. It retrieves the official UCI archive without a Kaggle account and records file hashes locally. The baseline writes `reports/runs/baseline/metrics.json`; raw data and exploratory run outputs are ignored by Git.
+The download uses the official UCI archive without a Kaggle account. The benchmark writes aggregate results under `reports/runs/benchmark/aggregate/` and keeps fitted models, predictions and identifier-derived checks under ignored `reports/runs/benchmark/private/`. It refuses to overwrite completed runs; choose new `--output` and `--private` directories for another experiment. Development requires an absent or empty private directory and rejects reuse before writing any output, including after an interrupted run. The measured full development run took about 4.3 minutes, plus evaluation, on this environment; other hardware may differ. Linux/Python 3.12 is validated.
 
-For a small execution check, use `python -m src.baseline --max-rows 5000`. Subset results are not the full-cohort results reported above.
+For a smaller mechanics check, add `--smoke` to the development command and use separate output directories. Its 600-patient results are not portfolio scores. To reproduce the original logistic baseline alone, install `requirements-core.txt` and run `python -m src.baseline`.
 
 ### Review the results notebook
 
@@ -110,19 +114,21 @@ In PowerShell, set `$env:CP8305_REPORTS_DIR = "$PWD/reports/runs/research"` firs
 | `data/diabetes130/raw/` | Tracked `IDS_mapping.csv`; downloaded `diabetic_data.csv` and download manifest stay local. |
 | `data/diabetes130/processed/` | Notebook 02 output, `processed_dataset.csv`, generated locally. |
 | `notebooks/` | Five notebooks, a Python launcher, and Slurm templates. |
-| `src/` | Data loading, preprocessing, feature engineering, modeling, visualization, shared paths, and the new baseline. |
+| `src/` | Data loading, preprocessing, feature engineering, modeling, visualization, shared paths, the baseline, and the controlled benchmark/evaluation pipeline. |
 | `reports/` | Original PDF/LaTeX report, bibliography, saved model, 38 historical figures, and 8 historical CSV tables. |
-| `reports/portfolio/` | New baseline metrics, summary figures, and source hashes. |
+| `reports/portfolio/` | Initial baseline metrics, summary figures, and source hashes. |
+| `reports/benchmark/` | Controlled experiment configuration, aggregate metrics/intervals, search traces and six diagnostic figures. |
 | `presentation/` | Original PDF slides, Beamer source, bibliography, build script, figures, and reference resources. |
 | `notes/` | Original preprocessing and modeling checklists. |
 | `scripts/refactor/` | Six development scripts for the original modeling refactor. |
 | `scripts/run_notebook.py` | Executes notebooks using the active Python environment. |
-| `docs/` | Dataset provenance, validation limits, and original README audit. |
-| `tests/` | Checks for cohort rules, patient separation, train-only preprocessing, paths, and downloading. |
+| `docs/` | Provenance, audits, benchmark methodology/results, model card, validation and career notes. |
+| `tests/` | Checks for cohort rules, patient separation, train-only preprocessing, model integration, calibration, bootstrap, freeze integrity, paths, and downloading. |
 | `.github/workflows/` | Automated unit checks and results-notebook execution. |
 
 ## Dependencies and Checks
 
+- `requirements-benchmark.txt`: pinned direct CPU benchmark stack, including LightGBM and XGBoost.
 - `requirements-core.txt`: pinned direct dependencies for the baseline and preprocessing.
 - `requirements-summary.txt`: pinned notebook execution dependencies plus the core stack.
 - `requirements.txt`: extended research libraries, including boosting and explainability tools; not a complete environment lock.
@@ -132,7 +138,7 @@ python -m unittest discover -s tests -v
 python -m compileall -q src scripts
 ```
 
-CI performs these checks and executes notebook 04 from committed results. It does not rerun every original model or download patient records.
+CI checks patient separation, preprocessing, all three estimators, nested calibration, paired metrics, persistence and a synthetic two-process benchmark round trip, then executes notebook 04. It does not rerun the full real-data experiment or download patient records. See the linked verification record for actual run status.
 
 ## Deliverables
 
@@ -141,6 +147,7 @@ CI performs these checks and executes notebook 04 from committed results. It doe
 - [x] Five notebooks, reusable Python modules, historical figures/tables, and development notes/scripts.
 - [x] Completed [data documentation](docs/data_sources.md) and official-source downloader.
 - [x] Reproducible patient-disjoint baseline, recorded metrics, tests, and results review.
+- [x] Controlled three-model benchmark, bounded tuning, calibration diagnostics, paired uncertainty, sensitivity/error analysis and documented limitations.
 
 ## Team and Provenance
 
@@ -150,7 +157,7 @@ All three team members collaborated throughout the project, including research, 
 
 This edition builds on [chrisindris/CP8305FP](https://github.com/chrisindris/CP8305FP), `main` at [d340d61aa0aa7f7828409dfeae4f27c437c50d4a](https://github.com/chrisindris/CP8305FP/commit/d340d61aa0aa7f7828409dfeae4f27c437c50d4a), dated 2026-09-26. Original authorship and Git history are retained. The original PDF report, presentation, model, and aggregate results remain historical artifacts; the new experiment is labeled separately.
 
-Portfolio maintenance adds executable documentation, portable paths, an independent baseline, threshold-selection fixes, checks, and cleanup of generated build files. See the [original README audit](docs/repository_audit.md) and [validation record](docs/validation.md). This repository represents a team project; it does not attribute all original work to one contributor.
+Portfolio maintenance, developed with AI coding assistance, adds executable documentation, portable paths, an independent baseline, a controlled three-model benchmark, threshold-selection fixes, checks, and cleanup of generated build files. See the [original README audit](docs/repository_audit.md) and [validation record](docs/validation.md). This repository represents a team project; it does not attribute all original work to one contributor.
 
 The UCI dataset is distributed under CC BY 4.0. The upstream snapshot has no repository-wide `LICENSE`; this edition does not assert a new license over the team's work or third-party resources.
 

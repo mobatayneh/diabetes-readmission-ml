@@ -539,15 +539,15 @@ def plot_confidence_intervals(
 
 def plot_cost_threshold_sweep(
     sweep_df: pd.DataFrame,
-    title: str = "Expected Cost & Recall vs. Threshold",
+    title: str = "Illustrative Signed Value & Recall vs. Threshold",
 ) -> plt.Figure:
-    """Dual-axis plot of expected cost (left) and recall (right) vs. threshold."""
+    """Inherited signed values (higher is better), not verified monetary costs."""
     fig, ax1 = plt.subplots(figsize=(9, 5))
     ax2 = ax1.twinx()
 
     ax1.plot(
         sweep_df["threshold"], sweep_df["avg_cost"],
-        "b-o", markersize=4, label="Avg cost / patient",
+        "b-o", markersize=4, label="Illustrative signed value / patient",
     )
     ax2.plot(
         sweep_df["threshold"], sweep_df["recall"],
@@ -555,7 +555,7 @@ def plot_cost_threshold_sweep(
     )
 
     ax1.set_xlabel("Decision Threshold")
-    ax1.set_ylabel("Average Cost per Patient ($)", color="b")
+    ax1.set_ylabel("Signed value per patient (higher is better)", color="b")
     ax2.set_ylabel("Recall", color="r")
     ax1.tick_params(axis="y", labelcolor="b")
     ax2.tick_params(axis="y", labelcolor="r")
