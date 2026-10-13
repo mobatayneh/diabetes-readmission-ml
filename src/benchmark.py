@@ -213,6 +213,8 @@ def develop(raw_path, output, private, smoke=False):
     config = protocol(smoke)
     if (output / "freeze.json").exists():
         raise FileExistsError("Frozen experiment exists; choose a new --output and --private directory")
+    if private.exists() and (not private.is_dir() or any(private.iterdir())):
+        raise FileExistsError("Private run directory is not empty; choose a new --private directory")
     output.mkdir(parents=True, exist_ok=True)
     private.mkdir(parents=True, exist_ok=True)
     start = time.perf_counter()

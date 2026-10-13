@@ -68,7 +68,7 @@ python -m src.benchmark --stage evaluate
 python -m unittest discover -s tests -v
 ```
 
-Default aggregate and private outputs are under ignored `reports/runs/benchmark/`. The committed reference aggregates live in `reports/benchmark/`. A completed run is not silently overwritten: use new `--output` and `--private` directories for a different experiment. The evaluation verifies source/config/data/model/environment hashes from `freeze.json` first. Use `--smoke` during development for 600 real patients; it tests mechanics and its results must not replace full-cohort scores.
+Default aggregate and private outputs are under ignored `reports/runs/benchmark/`. The committed reference aggregates live in `reports/benchmark/`. A completed run is not silently overwritten: use new `--output` and `--private` directories for a different experiment. Development rejects any nonempty private directory before reading the data or writing outputs, protecting completed and interrupted runs even if only `--output` is changed. An existing empty private directory is accepted. The evaluation verifies source/config/data/model/environment hashes from `freeze.json` first. Use `--smoke` during development for 600 real patients; it tests mechanics and its results must not replace full-cohort scores.
 
 Direct computational dependencies are pinned in `requirements-benchmark.txt` plus core/summary requirements. The freeze/evaluation metadata records the measured environment; this is not a complete transitive package or OS lock. Linux/Python 3.12 is the validated target; Windows/macOS are not independently verified.
 

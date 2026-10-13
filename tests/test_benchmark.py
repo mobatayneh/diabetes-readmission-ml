@@ -14,7 +14,7 @@ from sklearn.calibration import CalibratedClassifierCV
 from sklearn.exceptions import ConvergenceWarning
 from test_baseline import sample_encounters
 from src.baseline import FEATURES, NUMERIC_FEATURES, prepare_cohort, split_cohort, make_pipeline
-from src.benchmark import cv_splits, search, verify_freeze, digest
+from src.benchmark import cv_splits, search, verify_freeze, digest, develop
 from src.benchmark_models import make_model
 from src.evaluation import metrics, paired_bootstrap, threshold_curve
 from src.experiment_config import protocol, MODELS
@@ -131,6 +131,7 @@ class BenchmarkTests(unittest.TestCase):
             raw = root / "synthetic.csv"
             sample_encounters(900).to_csv(raw, index=False)
             output, private = root / "aggregate", root / "private"
+            private.mkdir()  # Pre-created empty private directories remain valid.
             command = [sys.executable, "-m", "src.benchmark", "--raw", str(raw),
                        "--output", str(output), "--private", str(private)]
             for stage in ("develop", "evaluate"):
@@ -149,6 +150,39 @@ class BenchmarkTests(unittest.TestCase):
             again = subprocess.run(command + ["--stage", "evaluate"], capture_output=True, text=True)
             self.assertNotEqual(again.returncode, 0)
             self.assertIn("Evaluation already exists", again.stderr)
+            # A new aggregate path must not overwrite a completed run's models.
+            before = {p.name: digest(p) for p in private.iterdir() if p.is_file()}
+            new_output = root / "second-aggregate"
+            reused = subprocess.run([sys.executable, "-m", "src.benchmark",
+                "--stage", "develop", "--smoke", "--raw", str(raw),
+                "--output", str(new_output), "--private", str(private)],
+                capture_output=True, text=True)
+            self.assertNotEqual(reused.returncode, 0)
+            self.assertIn("Private run directory is not empty", reused.stderr)
+            self.assertFalse(new_output.exists())
+            self.assertEqual(before, {p.name: digest(p) for p in private.iterdir() if p.is_file()})
+
+    def test_nonempty_private_directory_rejected_before_any_output(self):
+        # Protect interrupted runs too, even when there is no freeze manifest.
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            private = root / "private"
+            private.mkdir()
+            marker = private / "partition_checks.json"
+            marker.write_text('{"existing": "retain"}')
+            for output in (root / "new-output", root / "existing-output"):
+                with self.subTest(output=output.name):
+                    if output.name == "existing-output":
+                        output.mkdir()
+                        (output / "cohort.json").write_text('{"original": true}')
+                    existed = output.exists()
+                    before = marker.read_bytes()
+                    with self.assertRaisesRegex(FileExistsError, "Private run directory is not empty"):
+                        develop(root / "must-not-read.csv", output, private, smoke=True)
+                    self.assertEqual(marker.read_bytes(), before)
+                    self.assertEqual(output.exists(), existed)
+                    if existed:
+                        self.assertEqual((output / "cohort.json").read_text(), '{"original": true}')
 
     def test_small_subgroups_are_omitted_from_public_diagnostics(self):
         frame = self.cohort.copy()

@@ -67,7 +67,7 @@ python -m src.benchmark --stage develop
 python -m src.benchmark --stage evaluate
 ```
 
-The download uses the official UCI archive without a Kaggle account. The benchmark writes aggregate results under `reports/runs/benchmark/aggregate/` and keeps fitted models, predictions and identifier-derived checks under ignored `reports/runs/benchmark/private/`. It refuses to overwrite completed runs; choose new `--output` and `--private` directories for another experiment. The measured full development run took about 4.3 minutes, plus evaluation, on this environment; other hardware may differ. Linux/Python 3.12 is validated.
+The download uses the official UCI archive without a Kaggle account. The benchmark writes aggregate results under `reports/runs/benchmark/aggregate/` and keeps fitted models, predictions and identifier-derived checks under ignored `reports/runs/benchmark/private/`. It refuses to overwrite completed runs; choose new `--output` and `--private` directories for another experiment. Development requires an absent or empty private directory and rejects reuse before writing any output, including after an interrupted run. The measured full development run took about 4.3 minutes, plus evaluation, on this environment; other hardware may differ. Linux/Python 3.12 is validated.
 
 For a smaller mechanics check, add `--smoke` to the development command and use separate output directories. Its 600-patient results are not portfolio scores. To reproduce the original logistic baseline alone, install `requirements-core.txt` and run `python -m src.baseline`.
 

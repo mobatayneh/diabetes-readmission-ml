@@ -34,9 +34,11 @@ Before final publication, GitHub contained the executed source snapshot `fd33684
 - All 21 tests pass again (16.302 seconds); Python modules compile, and all five notebooks validate structurally with compilable code cells. Historical notebooks were not newly executed end to end.
 - Documentation links resolve, all 84 original report/presentation files remain byte-identical, and private patient fingerprints are absent from tracked text artifacts.
 
-Hosted checks for the final publication are recorded with their exact commit and run links in the review pull request. The earlier hosted run above remains evidence for its specifically identified source snapshot.
+Hosted checks and their exact commits are available in the review pull request's Checks tab. The earlier hosted run above remains evidence for its specifically identified source snapshot.
 
 ## Source versions and publication maintenance
+
+Run-directory protection was verified on 2026-10-13: development now rejects nonempty private directories before reading data or writing outputs. A regression test protects interrupted-run files, and the two-process integration test attempts a second development run with a new aggregate path but the previous private directory. The attempt is rejected, every existing private file retains its hash, and no new aggregate directory is created. Existing empty private directories remain supported. All 22 tests passed locally in 18.783 seconds; Python compilation passed. This guard does not change any recorded scientific results or rerun the real-data experiment.
 
 The executed code was recorded under local source commit `027c369` and published as [`fd33684c2b45f9c295ee2e2140c404d3ac27b77c`](https://github.com/mobatayneh/diabetes-readmission-ml/commit/fd33684c2b45f9c295ee2e2140c404d3ac27b77c). Their source trees are identical: `b78f7070f0453748b0c80f38b6c29d580920add3`. Every source SHA-256 in the reference freeze manifest matches that executed source snapshot.
 
