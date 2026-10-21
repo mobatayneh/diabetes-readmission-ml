@@ -4,7 +4,7 @@
 
 Research and engineering education: compare Logistic Regression, LightGBM and XGBoost for the observed UCI `<30` readmission label. Prediction is defined at the end of an index hospitalization, assuming final fields are available. The repository is not a clinical decision system and does not support admission-time prediction with these inputs.
 
-The original academic work belongs to **Christopher Indris, Mojtaba Mohammadi, and Mohammad Al Batayneh**. This extension was developed with AI coding assistance and verified through the recorded experiments and tests; it does not establish any individual contributor's sole authorship or independent mastery. Original PDFs, slides, stored model and aggregate artifacts are retained. Data attribution: Clore, Cios, DeShazo and Strack, UCI, [DOI 10.24432/C5230J](https://doi.org/10.24432/C5230J), CC BY 4.0. No new repository-wide license is asserted over the team's work.
+The original academic work belongs to **Christopher Indris, Mojtaba Mohammadi, and Mohammad Al Batayneh**. This extension was verified through the recorded experiments and tests; it does not establish any individual contributor's sole authorship or independent mastery. Original PDFs, slides, stored model and aggregate artifacts are retained. Data attribution: Clore, Cios, DeShazo and Strack, UCI, [DOI 10.24432/C5230J](https://doi.org/10.24432/C5230J), CC BY 4.0. No new repository-wide license is asserted over the team's work.
 
 ## Data and scope
 
