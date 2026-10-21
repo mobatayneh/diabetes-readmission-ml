@@ -1,6 +1,6 @@
 # Resume wording and interview preparation
 
-These descriptions summarize the implemented project. The original academic work was collaborative, and the portfolio extension used AI coding assistance. Choose wording consistent with your actual role and understanding; these are project descriptions, not claims that one person independently performed every experiment or original contribution. No CV file was changed.
+These descriptions summarize the implemented project. The original academic work was collaborative. Choose wording consistent with your actual role and understanding; these are project descriptions, not claims that one person independently performed every experiment or original contribution. No CV file was changed.
 
 ## Short project entry
 
@@ -11,7 +11,7 @@ Reproducible comparison of three classifiers on 69,990 eligible patients, with p
 
 ## Longer project explanation
 
-This project investigates readmission within 30 days using the UCI Diabetes 130-US Hospitals dataset. The original academic team—Christopher Indris, Mojtaba Mohammadi and Mohammad Al Batayneh—combined research, exploratory analysis, supervised modeling and patient segmentation. A later portfolio extension, developed with AI coding assistance, preserves that work and adds an executable three-model comparison on a common cohort and split.
+This project investigates readmission within 30 days using the UCI Diabetes 130-US Hospitals dataset. The original academic team—Christopher Indris, Mojtaba Mohammadi and Mohammad Al Batayneh—combined research, exploratory analysis, supervised modeling and patient segmentation. A later portfolio extension preserves that work and adds an executable three-model comparison on a common cohort and split.
 
 The extension compares Logistic Regression, LightGBM and XGBoost using fold-local preprocessing, bounded AP-based hyperparameter searches, validation-F1 decision thresholds and 1,000 paired patient bootstrap resamples. It includes nested training-only probability calibration, sensitivity studies, permutation importance, aggregate error analysis and automated checks. The tuned models have similar held-out discrimination, around ROC-AUC 0.65, without a clear pairwise advantage. This is a retrospective research exercise with a previously inspected holdout and no external or prospective clinical validation.
 
